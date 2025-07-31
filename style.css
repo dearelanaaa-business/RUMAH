@@ -1,0 +1,125 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fff7f8;
+  padding: 40px 20px;
+  color: #333;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 700px;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #f0c0c9;
+  box-sizing: border-box;
+}
+
+/* Title */
+h1 {
+  text-align: center;
+  color: #d85a7f;
+  margin-bottom: 25px;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-btn {
+  flex: 1 1 calc(33.33% - 10px);
+  padding: 10px;
+  background-color: #eee;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  white-space: normal;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.tab-btn.active {
+  background-color: #d85a7f;
+  color: white;
+}
+
+/* Tab content */
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Inputs & Labels */
+label {
+  display: block;
+  margin-top: 15px;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Buttons */
+button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+  background-color: #d85a7f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #b84c6c;
+}
+
+button.clear-btn {
+  background-color: #999;
+  margin-top: 10px;
+}
+
+button.clear-btn:hover {
+  background-color: #777;
+}
+
+/* Results box */
+.results {
+  margin-top: 20px;
+  background-color: #fef1f3;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+/* Notes */
+small {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: #666;
+  font-size: 0.78em;
+  line-height: 1.4;
+}
+
+/* Responsive tweak for tabs */
+@media (max-width: 600px) {
+  .tab-btn {
+    flex: 1 1 100%;
+  }
+}
