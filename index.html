@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rumah Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Rumah Calculator</h1>
+
+    <!-- Tab Buttons -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('afford')">💰 Affordability</button>
+      <button class="tab-btn" onclick="switchTab('loanEstimate')">🧮 Anggaran Loan Rumah</button>
+      <button class="tab-btn" onclick="switchTab('loanBreakdown')">📊 Loan Breakdown</button>
+      <button class="tab-btn" onclick="switchTab('oneTime')">🧾 Kos Permulaan</button>
+      <button class="tab-btn" onclick="switchTab('dsr')">🏦 Kelayakan Loan (DSR)</button>
+      <button class="tab-btn" onclick="switchTab('monthly')">📆 Komitmen Bulanan</button>
+    </div>
+
+    <!-- Tab: Affordability -->
+    <div id="afford" class="tab-content active">
+      <label for="salary">Gaji Bulanan (RM):</label>
+      <input type="number" id="salary" oninput="calculateAfford()" />
+      <small>💡 Gaji bersih selepas potongan KWSP, SOCSO, zakat, dsb.</small>
+
+      <label for="debt">Jumlah Hutang Bulanan (RM):</label>
+      <input type="number" id="debt" oninput="calculateAfford()" />
+      <small>💡 Jumlah komitmen tetap seperti kereta, PTPTN, kad kredit, AEON, dll.</small>
+
+      <label for="loanPercent">Loan Rumah (%):</label>
+      <select id="loanPercent" onchange="calculateAfford()">
+        <option value="90">90%</option>
+        <option value="100">100%</option>
+      </select>
+
+      <button onclick="calculateAfford()">Kira Sekarang</button>
+      <button class="clear-btn" onclick="clearAfford()">Clear All</button>
+      <div id="resultsAfford" class="results"></div>
+    </div>
+
+    <!-- Tab: Anggaran Loan Rumah -->
+    <div id="loanEstimate" class="tab-content">
+      <label for="loanPrice">Harga Rumah (RM):</label>
+      <input type="number" id="loanPrice" oninput="calculateLoanEstimate()" />
+      <small>💡 Akan kira jumlah loan dan bayaran bulanan ikut harga rumah.</small>
+
+      <label for="monthlyPay">Bayaran Bulanan Mampu Bayar (RM):</label>
+      <input type="number" id="monthlyPay" oninput="calculateLoanEstimate()" />
+      <small>💡 Akan kira jumlah loan dan harga rumah maksimum ikut kemampuan anda.</small>
+
+      <label for="loanPercentEstimate">Loan Rumah (%):</label>
+      <select id="loanPercentEstimate" onchange="calculateLoanEstimate()">
+        <option value="90">90%</option>
+        <option value="100">100%</option>
+      </select>
+
+      <button onclick="calculateLoanEstimate()">Kira Sekarang</button>
+      <button class="clear-btn" onclick="clearLoanEstimate()">Clear All</button>
+      <div id="resultsLoanEstimate" class="results"></div>
+    </div>
+
+    <!-- Tab: Loan Breakdown -->
+    <div id="loanBreakdown" class="tab-content">
+      <label for="loanAmountCalc">Jumlah Pinjaman Rumah (RM):</label>
+      <input type="number" id="loanAmountCalc" oninput="calculateLoanBreakdown()" />
+      <small>💡 Contoh: RM300,000</small>
+
+      <label for="interestRate">Kadar Faedah (%):</label>
+      <input type="number" step="0.01" id="interestRate" oninput="calculateLoanBreakdown()" />
+      <small>💡 Contoh: 4.5 — anggaran bank semasa antara 3.5% hingga 5.5%</small>
+
+      <label for="loanTenure">Tempoh Pinjaman (Tahun):</label>
+      <input type="number" id="loanTenure" oninput="calculateLoanBreakdown()" />
+      <small>💡 Biasanya 30 tahun untuk rumah pertama</small>
+
+      <button onclick="calculateLoanBreakdown()">Kira Sekarang</button>
+      <button class="clear-btn" onclick="clearLoanBreakdown()">Clear All</button>
+      <div id="resultsLoanBreakdown" class="results"></div>
+    </div>
+
+    <!-- Tab: Kos Permulaan -->
+    <div id="oneTime" class="tab-content">
+      <label for="rumahHarga">Harga Rumah (RM):</label>
+      <input type="number" id="rumahHarga" oninput="calculateOneTimeCosts()" />
+      <small>💡 Digunakan untuk kira deposit, yuran guaman, duti setem, dll.</small>
+
+      <button onclick="calculateOneTimeCosts()">Kira Sekarang</button>
+      <button class="clear-btn" onclick="clearOneTime()">Clear All</button>
+      <div id="resultsOneTime" class="results"></div>
+    </div>
+
+    <!-- Tab: DSR -->
+    <div id="dsr" class="tab-content">
+      <label for="dsrSalary">Gaji Bulanan (RM):</label>
+      <input type="number" id="dsrSalary" oninput="calculateDSR()" />
+      <small>💡 Gaji bersih selepas potongan tetap</small>
+
+      <label for="dsrDebt">Jumlah Hutang Sedia Ada (RM):</label>
+      <input type="number" id="dsrDebt" oninput="calculateDSR()" />
+      <small>💡 Jumlah komitmen lain sebelum loan rumah</small>
+
+      <label for="dsrLoan">Anggaran Bayaran Loan Rumah (RM):</label>
+      <input type="number" id="dsrLoan" oninput="calculateDSR()" />
+      <small>💡 DSR (Debt Service Ratio) ialah peratusan gaji anda yang digunakan untuk bayar hutang.</small>
+
+      <button onclick="calculateDSR()">Kira Sekarang</button>
+      <button class="clear-btn" onclick="clearDSR()">Clear All</button>
+      <div id="resultsDSR" class="results"></div>
+    </div>
+
+    <!-- Tab: Komitmen Bulanan -->
+    <div id="monthly" class="tab-content">
+      <label for="loanMonthly">Bayaran Pinjaman Bulanan (RM):</label>
+      <input type="number" id="loanMonthly" oninput="calculateMonthlyCommitment()" />
+      <small>💡 (Harga Rumah × %Loan) × 0.0055. Anggaran 30 tahun dengan 5.5% interest.</small>
+
+      <label for="maintenance">Maintenance Bulanan (RM):</label>
+      <input type="number" id="maintenance" oninput="calculateMonthlyCommitment()" />
+      <small>💡 Contoh: apartment, strata atau kawasan berpagar.</small>
+
+      <label for="cukai">Cukai Pintu + Tanah (RM):</label>
+      <input type="number" id="cukai" oninput="calculateMonthlyCommitment()" />
+      <small>💡 Anggaran tahunan dibahagi 12 bulan.</small>
+
+      <label for="utiliti">Utiliti Bulanan (RM):</label>
+      <input type="number" id="utiliti" oninput="calculateMonthlyCommitment()" />
+      <small>💡 Bil air, elektrik, internet. Anggaran biasa RM200–RM500 sebulan.</small>
+
+      <button onclick="calculateMonthlyCommitment()">Kira Jumlah</button>
+      <button class="clear-btn" onclick="clearMonthly()">Clear All</button>
+      <div id="resultsMonthly" class="results"></div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
